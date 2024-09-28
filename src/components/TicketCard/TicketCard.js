@@ -1,5 +1,6 @@
 import './TicketCard.css'; // Import the CSS file
 
+//SingleCard → TicketCard
 const TicketCard = ({ title, ticketId, group, priorityLevels, userObj, statusObj, status, user, priority }) => {
   return (
     <div className="card-container">

@@ -1,21 +1,28 @@
 import './TaskBoard.css'; // Import the CSS file
 import TicketColumn from "../TicketColumn/TicketColumn";
 
+//Main → TaskBoard
 const TaskBoard = ({ order, group, data, priorityLevels, userObj, statusObj }) => {
   
-  // Function to group tickets based on the provided groupBy value
+  // Function to group tickets based on the provided groupBy (status,priority,user) value
   const categorizeTickets = (tickets, groupBy) => {
+
     const availableGroups = {
       status: ["Todo", "In progress", "Backlog", "Cancelled", "Done"],
       priority: [4, 3, 2, 1, 0],
       user: ["usr-1", "usr-2", "usr-3", "usr-4", "usr-5"]
     };
 
+    // making an empty array corresponding to all key of a partcular selected group 
+    //acc contains data in the form of array for each key in a groupby techinque.
+    // and acc will look like same as availableGroups
+
     const acc = {};
     availableGroups[groupBy].forEach(key => {
       acc[key] = [];
     });
 
+    //pushing tickets corresponding to acc-keys
     tickets.forEach(ticket => {
       let key = ticket.status;
       if (groupBy === "priority") key = ticket.priority;
@@ -24,15 +31,17 @@ const TaskBoard = ({ order, group, data, priorityLevels, userObj, statusObj }) =
         acc[key].push(ticket);
       }
     });
-
     return acc;
   };
+//till now grouping is done.
 
-  const sorter=(a,b,type)=>{
+const sorter=(a,b,type)=>{// a and b are corresponding tickets
     if(type==="title")
-        return a.title.localeCompare(b.title);
-    else return b.priority - a.priority;
+        return a.title.localeCompare(b.title);//sorting based on alphabets
+    else return b.priority - a.priority;//sorting in descending order
 }
+
+//passing grouped tickets and the order in which we want to sort the groupedTickets.
 const sortedCategorizeTickets = (groupedTickets,order) => {
     return Object.entries(groupedTickets).reduce((acc, [key, tickets]) => {
         const sortedTickets = tickets.sort((a, b) => sorter(a,b,order));
@@ -44,8 +53,8 @@ const sortedCategorizeTickets = (groupedTickets,order) => {
 
   // Function that calls grouping and sorting functions
   const invokerFunction = (order, group, tickets) => {
-    const groupedTickets = categorizeTickets(data.tickets, group);
-    return sortedCategorizeTickets(groupedTickets, order);
+    const groupedTickets = categorizeTickets(data.tickets, group);//groups the data
+    return sortedCategorizeTickets(groupedTickets, order);//sort the data according to group
   };
 
   // Get sorted tickets based on order and group

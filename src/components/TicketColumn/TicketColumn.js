@@ -3,6 +3,7 @@ import Adder from "../../icons_FEtask/add.svg";
 import Dotter from "../../icons_FEtask/3 dot menu.svg";
 import TicketCard from '../TicketCard/TicketCard';
 
+//ColumnMaker → TicketColumn
 const TicketColumn = ({ tickets, keya, priorityLevels, group, order, userObj, statusObj }) => {
   return (
     <div className="column-container">

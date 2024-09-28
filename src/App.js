@@ -11,6 +11,7 @@ function App() {
   const [data, setData] = useState({});
   const [group, setGroup] = useState("priority");
 
+  //user-icons
   const userMemberObj = {
     "usr-1": {
       name: "Anoop Sharma",
@@ -33,22 +34,35 @@ function App() {
       path: require("./icons_FEtask/user.svg").default,
     },
   };
+
+  //status-icons
   const statusMemberObj = {
-    Todo: { name: "Todo", path: require("./icons_FEtask/To-do.svg").default },
-    Done: { name: "Done", path: require("./icons_FEtask/Done.svg").default },
+
+    Todo: { name: "Todo",
+            path: require("./icons_FEtask/To-do.svg").default 
+      },
+
+    Done: { name: "Done",
+            path: require("./icons_FEtask/Done.svg").default
+          },
+
     Cancelled: {
       name: "Cancelled",
       path: require("./icons_FEtask/Cancelled.svg").default,
     },
+
     "In progress": {
       name: "In Progress",
       path: require("./icons_FEtask/in-progress.svg").default,
     },
+
     Backlog: {
       name: "Backlog",
       path: require("./icons_FEtask/Backlog.svg").default,
     },
   };
+
+  //priority-level-icons
   const priorityLevels = {
     4: {
       type: "Urgent",
@@ -72,6 +86,7 @@ function App() {
     },
   };
 
+
   const GroupSetterfxn = (group) => {
     setGroup(group);
   };
@@ -80,18 +95,19 @@ function App() {
     setOrder(order);
   };
 
-
   const loadTicketsData = async () => {
     try {
-      const { data } = await axios.get("https://api.quicksell.co/v1/internal/frontend-assignment");
+      const { data } = await axios.get(
+        "https://api.quicksell.co/v1/internal/frontend-assignment"
+      );
       setData(data);
       setLoading(true);
     } catch (err) {
       console.error("Error while fetching tickets:- ", err);
       throw err;
     }
+    console.log("api data ",data)
   };
-  
 
   useEffect(() => {
     loadTicketsData();
@@ -111,6 +127,8 @@ function App() {
             group={group}
             order={order}
           />
+
+          {/* main-body */}
           <TaskBoard
             data={data}
             order={order}

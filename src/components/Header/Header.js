@@ -3,18 +3,24 @@ import Dropdown from "../../icons_FEtask/Display.svg";
 import Downarror from "../../icons_FEtask/down.svg";
 import './Header.css'; 
 
+//Navbar → HeaderBar
 const Header = ({ setOrderFunc, setGroupFunc, group, order }) => {
+
+    //for button toggling
     const [toggle, setToggle] = useState(false);
     
+    //fxn for toggle
     const Dropdownfxntoggle = () => {
         setToggle(!toggle);
     };
     
+    //fxn for grouping
     const GrouponChange = (e) => {
         setGroupFunc(e.target.value);
         Dropdownfxntoggle();
     };
     
+    //fxn for odering
     const OrderonChange = (e) => {
         setOrderFunc(e.target.value);
         Dropdownfxntoggle();
@@ -31,6 +37,8 @@ const Header = ({ setOrderFunc, setGroupFunc, group, order }) => {
 
                 {toggle && (
                     <div className="dropdown-content">
+
+                        {/* dropdown-for grouping  */}
                         <div className="dropdown-header">
                             <label htmlFor="grouping" className="dropdown-label">Grouping</label>
                             <select name="grouping" id="grouping" value={group} onChange={GrouponChange}>
@@ -39,6 +47,8 @@ const Header = ({ setOrderFunc, setGroupFunc, group, order }) => {
                                 <option value="status">Status</option>
                             </select>
                         </div>
+                        
+                        {/* dropdown for ordering  */}
                         <div>
                             <div className="dropdown-header">
                                 <label htmlFor="ordering" className="dropdown-label">Ordering</label>
